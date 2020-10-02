@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Aerial Cam App</string>
+    <string name="button_refresh">Refresh</string>
+    <string name="button_record">Record</string>
+    <string name="textedit_ip">Enter IP Address</string>
+    <string name="button_setip">Set</string>
+    <string name="imageview_recentcapture">Most recently captured image</string>
 </resources>
