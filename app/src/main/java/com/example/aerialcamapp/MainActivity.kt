@@ -1,19 +1,17 @@
 package com.example.aerialcamapp
 
-import android.content.SharedPreferences
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import com.example.aerialcamapp.services.HttpService
-import com.github.kittinunf.fuel.Fuel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
+const val WIFI_SETTINGS = 111
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,19 +36,50 @@ class MainActivity : AppCompatActivity() {
                 HttpService.instance.startRecording(this, ip)
             }
         }
+    }
 
-        button_setip.setOnClickListener { _ ->
-            setIp()
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.wifi_settings -> {
+                changeWifiSettings()
+                true
+            }
+            R.id.length_settings -> {
+                //TODO
+                true
+            }
+            R.id.framesize_settings -> {
+                //TODO
+                true
+            }
+            R.id.quality_settings -> {
+                //TODO
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun setIp() {
-        if (textedit_ip.text.toString() != "") {
-            ip = textedit_ip.text.toString()
-            Toast.makeText(this, "IP set to $ip", Toast.LENGTH_SHORT).show()
-            HttpService.instance.refreshImage(image_recentcapture, ip)
-        } else {
-            Toast.makeText(this, "IP required", Toast.LENGTH_SHORT).show()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            WIFI_SETTINGS -> {
+                if (resultCode == RESULT_OK && data != null) {
+                    ip = data.data.toString()
+                    HttpService.instance.refreshImage(image_recentcapture, ip)
+                }
+            }
         }
+    }
+
+    private fun changeWifiSettings() {
+        val intent = Intent(this, WifiSettingsActivity::class.java)
+        intent.data = Uri.parse(ip)
+        startActivityForResult(intent, WIFI_SETTINGS)
     }
 }

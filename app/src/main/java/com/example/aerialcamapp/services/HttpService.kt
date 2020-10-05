@@ -17,6 +17,12 @@ class HttpService {
         val instance = HttpService()
     }
 
+    fun validConnection(url: String): Boolean {
+        val resp = Fuel.get("http://$url/capture").response().second
+
+        return resp.statusCode != -1
+    }
+
     fun refreshImage(imageView: ImageView, url: String) = scope.launch(Dispatchers.IO) {
         val resp = Fuel.get("http://$url/capture").response().second
 

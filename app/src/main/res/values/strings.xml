@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">Aerial Cam App</string>
+
     <string name="button_refresh">Refresh</string>
     <string name="button_record">Record</string>
+    <string name="imageview_recentcapture">Most recently captured image</string>
+    <string name="label_avilength">Video length:</string>
+    <string name="label_framesize">Frame size:</string>
+    <string name="label_quality">Compression:</string>
     <string name="textedit_ip">Enter IP Address</string>
     <string name="button_setip">Set</string>
-    <string name="imageview_recentcapture">Most recently captured image</string>
+
+    <string name="wifi_settings">WiFi</string>
+    <string name="length_settings">Video length</string>
+    <string name="framesize_settings">Frame size</string>
+    <string name="quality_settings">Compression</string>
+
+    <string name="info_wifi">Enter the IP address created by your camera. It may take a few seconds
+    to verify.</string>
 </resources>
